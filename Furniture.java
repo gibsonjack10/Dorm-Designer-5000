@@ -1,5 +1,9 @@
-public class Furniture implements DormGUI {
-
+/**
+ * (This class creates Furniture objects.)
+ * <p>Bugs: (no known bugs)
+ * @author (Bennett Majerowski and John Gibson)
+ */
+public class Furniture implements DormGUI{
 	private PApplet processing;
 	private PImage image;
 	private float[] position;
@@ -7,7 +11,11 @@ public class Furniture implements DormGUI {
 	private int rotations;
 	private String type;
 	
-	// initializes the fields of a new bed object positioned in the center of the display
+	/**
+	 * Constructor that creates Furniture based on user moving objects in window
+	 * @param type is the type of furniture (sofa or bed)
+	 * @param processing uses information from the jar file
+	 */
 	public Furniture(String type, PApplet processing) {
 		this.type = type;
 		this.processing = processing;
@@ -20,6 +28,14 @@ public class Furniture implements DormGUI {
 		
 	}
 	
+	/**
+	 * Overload Constructor that creates Furniture based on RoomData file
+	 * @param type is the type of furniture (sofa or bed)
+	 * @param xPos is the horizontal location of the object
+	 * @param yPos is the vertical location of the object
+	 * @param rotate is the number of rotations that the object has 
+	 * @param processing uses information from the jar file
+	 */
 	public Furniture(String type, float xPos, float yPos, int rotate, PApplet processing) {
 		this.type = type;
 		this.processing = processing;
@@ -31,8 +47,9 @@ public class Furniture implements DormGUI {
 		isDragging = false;
 	}
 	
-	
-	// draws this bed at its current position
+	/**
+	 * (Update changes the position of the bed or sofa objects and prints them)
+	 */
 	public void update() { 
 		if (isDragging == true) {
 			position[0] = processing.mouseX;
@@ -43,18 +60,28 @@ public class Furniture implements DormGUI {
 		}
 	}
 	
-	// used to start dragging the bed, when the mouse is over this bed when it is pressed
+	/**
+	 * (MouseDown allows Update to move the furniture when the mouse is clicked)
+	 */
+	@Override
 	public void mouseDown(Furniture[] furniture) {
-		if (isMouseOver() == true);
+		if (isMouseOver() == true)
 			isDragging = true;
 	}
 	
-	// used to indicate that the bed is no longer being dragged
+	/**
+	 * (MouseUp identifies when the furniture should no longer be moved.)
+	 */
 	public void mouseUp() {
 		isDragging = false;
 	}
 	
-	// helper method to determine whether the mouse is currently over this bed
+	/**
+	 * (isMouseOver is a helper method that identifies when the mouse is 
+	 * over one of the furniture objects. No alterations to the furniture can
+	 * occur unless this method returns true.
+	 * @return returns true is the computer mouse is over an object)
+	 */
 	public boolean isMouseOver() {
 		if (rotations % 2 == 0) {
 			if (processing.mouseX > position[0] - image.width/2 && 
@@ -73,24 +100,39 @@ public class Furniture implements DormGUI {
 		return false;	
 	}
 	
+	/**
+	 * (rotate is a counter that increases by one every time the user input
+	 * specifies that the furniture should rotate. It is referred to in update.)
+	 */
 	public void rotate() {
 		rotations++;
 	}
 	
+	/**
+	 * (Getter for object type.)
+	 */
 	public String getType() {
 		return type;
 	}
 	
+	/**
+	 * (Getter for object x-position.)
+	 */
 	public float getXPosition() {
 		return position[0];
 	}
 	
+	/**
+	 * (Getter for object y-position.)
+	 */
 	public float getYPosition() {
 		return position[1];
 	}
 	
+	/**
+	 * (Getter for object rotations.)
+	 */
 	public int getRotation() {
 		return rotations;
 	}
-
 }
